@@ -10,7 +10,9 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import CachedImage from 'react-native-expo-cached-image';
+import imageCacheHoc from 'react-native-image-cache-hoc';
+
+const CacheableImage = imageCacheHoc(Image);
 
 const reactNativePackage = require('react-native/package.json');
 const splitVersion = reactNativePackage.version.split('.');
@@ -184,7 +186,7 @@ class ImageSlider extends Component<PropsType, StateType> {
     this._move(this.state.position, false);
   };
 
-  _renderImage = (image: any, index: number) => {
+  _renderImage = (image: any, index: number) => { 
     const { width } = Dimensions.get('window');
     const { onPress, customSlide } = this.props;
     const offset = { marginLeft: index === -1 ? -width : 0 };
@@ -197,7 +199,7 @@ class ImageSlider extends Component<PropsType, StateType> {
     const imageObject = typeof image === 'string' ? { uri: image } : image;
 
     const imageComponent = (
-      <Image key={index} source={imageObject} style={[imageStyle]} />
+      <CacheableImage key={index} source={imageObject} style={[imageStyle]} />
     );
 
     if (onPress) {
