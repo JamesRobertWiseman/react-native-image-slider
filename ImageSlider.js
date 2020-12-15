@@ -2,6 +2,7 @@
 
 import React, { type Node, Component } from 'react';
 import {
+  Image,
   View,
   ScrollView,
   StyleSheet,
@@ -196,7 +197,7 @@ class ImageSlider extends Component<PropsType, StateType> {
     const imageObject = typeof image === 'string' ? { uri: image } : image;
 
     const imageComponent = (
-      <CachedImage key={index} source={imageObject} style={[imageStyle]} />
+      <Image key={index} source={imageObject} style={[imageStyle]} />
     );
 
     if (onPress) {
