@@ -25,5 +25,8 @@
   "devDependencies": {
     "flow-bin": "^0.101.1",
     "flow-typed": "^2.5.2"
+  },
+  "dependencies": {
+    "react-native-expo-cached-image": "^1.3.1"
   }
 }

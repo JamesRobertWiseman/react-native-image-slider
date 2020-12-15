@@ -2,7 +2,6 @@
 
 import React, { type Node, Component } from 'react';
 import {
-  Image,
   View,
   ScrollView,
   StyleSheet,
@@ -10,6 +9,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import CachedImage from 'react-native-expo-cached-image';
 
 const reactNativePackage = require('react-native/package.json');
 const splitVersion = reactNativePackage.version.split('.');
@@ -196,7 +196,7 @@ class ImageSlider extends Component<PropsType, StateType> {
     const imageObject = typeof image === 'string' ? { uri: image } : image;
 
     const imageComponent = (
-      <Image key={index} source={imageObject} style={[imageStyle]} />
+      <CachedImage key={index} source={imageObject} style={[imageStyle]} />
     );
 
     if (onPress) {
