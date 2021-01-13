@@ -10,9 +10,6 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import imageCacheHoc from 'react-native-image-cache-hoc';
-
-const CacheableImage = imageCacheHoc(Image);
 
 const reactNativePackage = require('react-native/package.json');
 const splitVersion = reactNativePackage.version.split('.');
@@ -37,7 +34,8 @@ type PropsType = {
   onPress?: Object => void,
   customButtons?: (number, (number, animated?: boolean) => void) => Node,
   customSlide?: Slide => Node,
-  imagesWidth: number
+  imagesWidth?: number,
+  containerWidth?: number,
 };
 
 type StateType = {
@@ -50,7 +48,7 @@ type StateType = {
 class ImageSlider extends Component<PropsType, StateType> {
   state = {
     position: 0,
-    width: Dimensions.get('window').width,
+    width: Dimensions.get('screen').width,
     onPositionChangedCalled: false,
     interval: null,
   };
@@ -79,9 +77,7 @@ class ImageSlider extends Component<PropsType, StateType> {
       return;
     }
     const isUpdating = index !== this._getPosition();
-    const x = (this.props.imagesWidth ?
-	this.props.imagesWidth : Dimensions.get("window").width)
-	* index;
+    const x = (this.props.imagesWidth ? this.props.imagesWidth : Dimensions.get("screen").width) * index;
 
     this._ref && this._ref.scrollTo({ y: 0, x, animated });
 
@@ -182,14 +178,14 @@ class ImageSlider extends Component<PropsType, StateType> {
   }
 
   _onLayout = () => {
-    this.setState({ width: Dimensions.get('window').width });
+    this.setState({ width: Dimensions.get('screen').width });
     this._move(this.state.position, false);
   };
 
   _renderImage = (image: any, index: number) => { 
-    const { width } = Dimensions.get('window');
+    const width = this.props.containerWidth ?  this.props.containerWidth : Dimensions.get('screen').width;
     const { onPress, customSlide } = this.props;
-    const offset = { marginLeft: index === -1 ? -width : 0 };
+    const offset = { marginLeft: index === -1 ? - ywidth : 0 };
     const imageStyle = [styles.image, { width }, offset];
 
     if (customSlide) {
@@ -197,9 +193,9 @@ class ImageSlider extends Component<PropsType, StateType> {
     }
 
     const imageObject = typeof image === 'string' ? { uri: image } : image;
-
+    console.log(imageObject)
     const imageComponent = (
-      <CacheableImage key={index} source={imageObject} style={[imageStyle]} />
+      <Image key={index} source={imageObject} style={[imageStyle]} />
     );
 
     if (onPress) {

@@ -6,6 +6,7 @@ import {
   View,
   Image,
   TouchableHighlight,
+  Dimensions,
 } from 'react-native';
 
 import ImageSlider from 'react-native-image-slider';
@@ -60,6 +61,7 @@ class App extends Component<{}> {
               })}
             </View>
           )}
+          containerWidth={100}
         />
         <View style={styles.content2}>
           <Text style={styles.contentText}>Content 2</Text>
