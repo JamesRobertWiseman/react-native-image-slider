@@ -193,7 +193,6 @@ class ImageSlider extends Component<PropsType, StateType> {
     }
 
     const imageObject = typeof image === 'string' ? { uri: image, cache: 'force-cache', } : image;
-    console.log(imageObject)
     const imageComponent = (
       <Image key={index} source={imageObject} style={[imageStyle]} />
     );
